@@ -1,5 +1,7 @@
 # Physics-Guided Neural Network for Transient 2D Heat Transfer in Homogeneous Materials
 
+A portfolio-ready machine learning and scientific computing project that models transient two-dimensional heat transfer in both regular and complex geometries using a physics-guided neural network framework.
+
 This project studies temperature evolution in:
 - a **solid square plate**
 - a **square plate with a central void**
@@ -89,23 +91,19 @@ The thermal process studied in this project is **transient two-dimensional heat 
 
 The learning task is:
 
-\[
-(x, y, t) \rightarrow T
-\]
+`(x, y, t) -> T`
 
 where:
-- \(x, y, t\) are the model inputs
-- \(T\) is the predicted temperature in Kelvin
+- `(x, y, t)` are the model inputs
+- `T` is the predicted temperature in Kelvin
 
 The physical problem is motivated by the transient heat equation:
 
-\[
-\frac{\partial T}{\partial t} = \alpha \left( \frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} \right)
-\]
+`dT/dt = alpha * (d²T/dx² + d²T/dy²)`
 
 where:
-- \(T\) is temperature
-- \(\alpha\) is thermal diffusivity
+- `T` is temperature
+- `alpha` is thermal diffusivity
 
 This equation defines the physical structure behind the modelling task.
 
@@ -115,17 +113,17 @@ This equation defines the physical structure behind the modelling task.
 
 ### 1. Solid Square Plate
 
-- Domain size: **0.02 m × 0.02 m**
-- Coordinate range: **x, y ∈ [-0.01, 0.01]**
+- Domain size: **0.02 m x 0.02 m**
+- Coordinate range: **x, y in [-0.01, 0.01]**
 
 This domain represents a continuous conductive plate with no internal interruptions. It serves as the simpler benchmark case for the study.
 
 ### 2. Square Plate with a Central Void
 
-- Outer domain size: **0.03 m × 0.03 m**
-- Outer coordinate range: **x, y ∈ [-0.015, 0.015]**
-- Central void size: **0.01 m × 0.01 m**
-- Void coordinate range: **x, y ∈ [-0.005, 0.005]**
+- Outer domain size: **0.03 m x 0.03 m**
+- Outer coordinate range: **x, y in [-0.015, 0.015]**
+- Central void size: **0.01 m x 0.01 m**
+- Void coordinate range: **x, y in [-0.005, 0.005]**
 
 This domain introduces geometric complexity. Since heat cannot pass through the central void, the thermal field must redistribute around it.
 
@@ -169,6 +167,7 @@ Each row represents one spatial point at one time instant and contains:
 - **1 s to 15 s**
 
 ### Preprocessing Steps
+
 The preprocessing workflow includes:
 - loading Excel data into Python
 - selecting input and target variables
@@ -183,7 +182,7 @@ The output temperatures are retained in **Kelvin** to preserve physical interpre
 
 ## Methodology
 
-The project uses a coordinate-based neural modelling approach in which the network receives \((x, y, t)\) and predicts temperature \(T\).
+The project uses a coordinate-based neural modelling approach in which the network receives `(x, y, t)` and predicts temperature `T`.
 
 The overall methodology includes:
 1. generating transient thermal data using ANSYS
@@ -202,7 +201,7 @@ The framework is described as **physics-guided** because the training process is
 The predictive model is a fully connected feedforward neural network.
 
 ### Architecture
-- Input layer: **3 features** \((x, y, t)\)
+- Input layer: **3 features** `(x, y, t)`
 - Hidden layers:
   - 64 neurons
   - 32 neurons
@@ -214,6 +213,7 @@ The predictive model is a fully connected feedforward neural network.
 - **ReLU**
 
 ### Rationale
+
 This architecture was chosen to balance:
 - expressive capability
 - computational efficiency
@@ -239,6 +239,7 @@ Since the task is coordinate-based and the output is a continuous scalar field, 
 - **30% testing**
 
 ### Training Objective
+
 The training process is designed around:
 - **data consistency**
 - **physics-guided structure**
@@ -246,6 +247,7 @@ The training process is designed around:
 The aim is to encourage the network not only to fit the ANSYS reference samples, but also to learn behaviour aligned with the thermal problem.
 
 ### Evaluation Approach
+
 The trained models are analysed using:
 - convergence curves
 - predicted vs actual scatter plots
@@ -265,44 +267,44 @@ The temperature and error plots are examined at:
 
 ```text
 pinn-2d-heat-transfer/
-├── notebooks/
-│   ├── solid_square_pinn.ipynb
-│   └── square_with_void_pinn.ipynb
-├── data/
-│   ├── square.xlsx
-│   └── void.xlsx
-├── reports/
-│   ├── final_report.docx
-│   └── project_paper.pdf
-├── results/
-│   ├── convergence/
-│   │   ├── solid_square_loss.png
-│   │   └── square_with_void_loss.png
-│   ├── solid_square/
-│   │   ├── temp_error_1s.png
-│   │   ├── temp_error_5s.png
-│   │   ├── temp_error_10s.png
-│   │   ├── temp_error_15s.png
-│   │   └── predicted_vs_actual.png
-│   └── square_with_void/
-│       ├── temp_error_1s.png
-│       ├── temp_error_5s.png
-│       ├── temp_error_10s.png
-│       ├── temp_error_15s.png
-│       └── predicted_vs_actual.png
-├── assets/
-│   ├── solid_square_mesh.jpeg
-│   └── square_with_void_mesh.jpeg
-├── docs/
-│   ├── project_overview.md
-│   ├── results_summary.md
-│   ├── resume_project_summary.md
-│   └── notebook_notes.md
-├── src/
-│   └── README.md
-├── requirements.txt
-├── CONTRIBUTING.md
-├── CITATION.cff
-├── LICENSE
-├── .gitignore
-└── README.md
+|-- notebooks/
+|   |-- solid_square_pinn.ipynb
+|   `-- square_with_void_pinn.ipynb
+|-- data/
+|   |-- square.xlsx
+|   `-- void.xlsx
+|-- reports/
+|   |-- final_report.docx
+|   `-- project_paper.pdf
+|-- results/
+|   |-- convergence/
+|   |   |-- solid_square_loss.png
+|   |   `-- square_with_void_loss.png
+|   |-- solid_square/
+|   |   |-- temp_error_1s.png
+|   |   |-- temp_error_5s.png
+|   |   |-- temp_error_10s.png
+|   |   |-- temp_error_15s.png
+|   |   `-- predicted_vs_actual.png
+|   `-- square_with_void/
+|       |-- temp_error_1s.png
+|       |-- temp_error_5s.png
+|       |-- temp_error_10s.png
+|       |-- temp_error_15s.png
+|       `-- predicted_vs_actual.png
+|-- assets/
+|   |-- solid_square_mesh.jpeg
+|   `-- square_with_void_mesh.jpeg
+|-- docs/
+|   |-- project_overview.md
+|   |-- results_summary.md
+|   |-- resume_project_summary.md
+|   `-- notebook_notes.md
+|-- src/
+|   `-- README.md
+|-- requirements.txt
+|-- CONTRIBUTING.md
+|-- CITATION.cff
+|-- LICENSE
+|-- .gitignore
+`-- README.md

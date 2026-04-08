@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+title: "Physics-Guided Neural Network for Transient 2D Heat Transfer in Homogeneous Materials"
+message: "If you use this project, please cite it as below."
+type: software
+authors:
+  - family-names: "S"
+    given-names: "Aditya"
+  - family-names: "Mahesh"
+    given-names: "Amitha"
+  - family-names: "Naresh M"
+    given-names: "Ashwin"
+  - family-names: "C"
+    given-names: "Vivethasri"
+repository-code: "https://github.com/ashwinnaresh2005starzz-prog/pinn-2d-heat-transfer"
+license: MIT

@@ -2,11 +2,11 @@
 
 A portfolio-ready machine learning and scientific computing project that models transient two-dimensional heat transfer in both regular and complex geometries using a physics-guided neural network framework.
 
-This work studies temperature evolution in:
+This project studies temperature evolution in:
 - a **solid square plate**
 - a **square plate with a central void**
 
-The project combines **ANSYS-generated simulation data**, **deep learning**, and **physics-aware loss formulation** to learn temperature fields over space and time. It is designed as both an academic thermal-modelling study and a practical demonstration of coordinate-based neural surrogate modelling.
+It combines **ANSYS-generated simulation data**, **deep learning**, and **physics-aware modelling** to learn temperature fields over space and time. The work is presented as both an academic thermal-modelling study and a practical demonstration of coordinate-based neural surrogate modelling.
 
 ---
 
@@ -23,65 +23,69 @@ The project combines **ANSYS-generated simulation data**, **deep learning**, and
 - [Model Architecture](#model-architecture)
 - [Training Strategy](#training-strategy)
 - [Repository Structure](#repository-structure)
-- [Results](#results)
-- [Key Observations](#key-observations)
 - [Technical Stack](#technical-stack)
-- [How to Run the Project](#how-to-run-the-project)
+- [Installation and Usage](#installation-and-usage)
+- [Results Summary](#results-summary)
+- [Key Observations](#key-observations)
 - [Project Deliverables](#project-deliverables)
 - [Limitations](#limitations)
 - [Future Improvements](#future-improvements)
 - [Professional Relevance](#professional-relevance)
+- [Acknowledgement](#acknowledgement)
+- [Keywords](#keywords)
 - [Authors](#authors)
+- [License](#license)
 
 ---
 
 ## Project Overview
 
-Transient heat conduction is a core problem in thermal engineering, simulation, and scientific computing. In many real-world systems, temperature is not only a function of position but also changes over time. Traditional numerical approaches such as finite element analysis are highly effective, but they often require mesh generation, repeated numerical solves, and careful handling of complex geometries.
+Transient heat conduction is a fundamental problem in thermal engineering, simulation, and scientific computing. In many real-world systems, temperature varies not only with spatial position but also with time. Traditional numerical approaches such as finite element analysis, finite difference methods, and finite volume methods are effective, but they often require mesh generation, repeated numerical solves, and careful handling of boundary conditions and domain geometry.
 
-This project explores an alternative approach using a **physics-guided neural network** that learns temperature directly from spatial coordinates and time. The model is trained on simulation data exported from ANSYS and evaluated on two domain types:
+This project explores an alternative approach using a **physics-guided neural network** that learns temperature directly from spatial coordinates and time. The model is trained on simulation data exported from ANSYS and evaluated on two different domain types:
 1. a simple conductive square plate
-2. a square plate with a central geometric exclusion (void)
+2. a square plate with a central geometric exclusion, or void
 
-The goal is to examine whether a neural model can capture global thermal behaviour, transient evolution, and geometry-dependent heat-flow patterns while remaining guided by the underlying physical structure of the problem.
+The objective is to examine whether a neural model can capture global thermal behaviour, transient temperature evolution, and geometry-dependent heat-flow patterns while remaining guided by the physical structure of the problem.
 
 ---
 
 ## Why This Project Matters
 
-This project is relevant because it sits at the intersection of:
-- **machine learning**
-- **scientific computing**
-- **thermal simulation**
-- **surrogate modelling**
-- **physics-aware AI**
+This project is important because it lies at the intersection of:
+- machine learning
+- scientific computing
+- thermal simulation
+- surrogate modelling
+- physics-aware AI
 
 It demonstrates the ability to:
 - work with simulation-generated engineering datasets
-- preprocess spatial-temporal data for neural learning
+- preprocess spatial-temporal data for learning
 - design coordinate-based prediction models
-- compare model behaviour across multiple geometries
-- communicate technical results through plots, reports, and structured documentation
+- organize experiments across multiple geometries
+- interpret results using both numerical and visual analysis
+- document a technical project in a clean and professional way
 
-For portfolio and job purposes, this project shows applied experience in building machine-learning solutions for physics-based problems rather than only standard classification or regression tasks.
+From a portfolio perspective, it shows applied experience in solving physics-based modelling problems rather than only standard tabular, classification, or regression tasks.
 
 ---
 
 ## Objectives
 
-The major objectives of this project are:
+The main objectives of this project are:
 
 - To model transient 2D heat transfer using a neural-network-based surrogate framework
 - To study how geometry affects temperature prediction performance
-- To compare behaviour across a regular conductive domain and a complex domain with an internal void
-- To evaluate prediction quality using convergence plots, scatter plots, temperature fields, and error maps
-- To demonstrate a structured workflow from simulation data to trained model to engineering interpretation
+- To compare prediction behaviour across a regular conductive domain and a complex domain with an internal void
+- To evaluate model performance using convergence plots, scatter plots, temperature fields, and error maps
+- To build a structured workflow from simulation data to model training to engineering interpretation
 
 ---
 
 ## Problem Formulation
 
-The thermal process is based on **transient two-dimensional heat conduction**, where temperature depends on:
+The thermal process studied in this project is **transient two-dimensional heat conduction**, where temperature depends on:
 - spatial location: **x, y**
 - time: **t**
 
@@ -92,20 +96,20 @@ The learning task is:
 \]
 
 where:
-- \(x, y, t\) are the inputs
+- \(x, y, t\) are the model inputs
 - \(T\) is the predicted temperature in Kelvin
 
-The project is based on the transient heat equation:
+The physical problem is motivated by the transient heat equation:
 
 \[
 \frac{\partial T}{\partial t} = \alpha \left( \frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} \right)
 \]
 
 where:
-- \(T\) = temperature
-- \(\alpha\) = thermal diffusivity
+- \(T\) is temperature
+- \(\alpha\) is thermal diffusivity
 
-This equation provides the physical structure that motivates the learning framework.
+This equation defines the physical structure behind the modelling task.
 
 ---
 
@@ -116,7 +120,7 @@ This equation provides the physical structure that motivates the learning framew
 - Domain size: **0.02 m × 0.02 m**
 - Coordinate range: **x, y ∈ [-0.01, 0.01]**
 
-This domain represents a continuous conductive region with no internal interruptions. It serves as the simpler benchmark case.
+This domain represents a continuous conductive plate with no internal interruptions. It serves as the simpler benchmark case for the study.
 
 ### 2. Square Plate with a Central Void
 
@@ -125,20 +129,20 @@ This domain represents a continuous conductive region with no internal interrupt
 - Central void size: **0.01 m × 0.01 m**
 - Void coordinate range: **x, y ∈ [-0.005, 0.005]**
 
-This domain introduces geometry-driven complexity. Heat cannot pass through the central void, so the thermal field must redistribute around it.
+This domain introduces geometric complexity. Since heat cannot pass through the central void, the thermal field must redistribute around it.
 
 ---
 
 ## Boundary Conditions
 
-The thermal setup used in the project follows the problem description below:
+The thermal setup used in this project follows the stated problem description:
 
 - **West boundary:** 500 K
 - **East boundary:** 0 K
 - **North boundary:** adiabatic
 - **South boundary:** adiabatic
 
-This creates a left-to-right thermal gradient across the plate and drives the transient conduction behaviour over time.
+These conditions create a left-to-right thermal gradient and drive the transient conduction process over time.
 
 ---
 
@@ -152,7 +156,7 @@ The datasets used in this project were generated using **ANSYS simulations** and
 
 ### Dataset Structure
 
-Each row represents one node or spatial point at one time instant and contains:
+Each row represents one spatial point at one time instant and contains:
 - node number
 - x-coordinate
 - y-coordinate
@@ -167,30 +171,31 @@ Each row represents one node or spatial point at one time instant and contains:
 - **1 s to 15 s**
 
 ### Preprocessing Steps
-- loading Excel files into Python
-- selecting input and output variables
+The preprocessing workflow includes:
+- loading Excel data into Python
+- selecting input and target variables
 - removing inconsistent or missing entries
 - normalizing spatial and temporal inputs
 - applying train-test split
 - handling geometry-aware masking for the void domain during visualization
 
-The output temperature values are kept in **Kelvin** for physical interpretability.
+The output temperatures are retained in **Kelvin** to preserve physical interpretability.
 
 ---
 
 ## Methodology
 
-The project uses a coordinate-based neural approach in which the network receives \((x, y, t)\) and predicts temperature \(T\).
+The project uses a coordinate-based neural modelling approach in which the network receives \((x, y, t)\) and predicts temperature \(T\).
 
-The methodology includes:
-1. generating transient thermal data in ANSYS
-2. exporting the simulation results
+The overall methodology includes:
+1. generating transient thermal data using ANSYS
+2. exporting simulation results to spreadsheet format
 3. preprocessing spatial and temporal coordinates
-4. training neural models on both domains
-5. monitoring convergence during training
-6. evaluating predictions visually and numerically
+4. training neural models for both domains
+5. monitoring loss and prediction behaviour
+6. evaluating results through visual and regression-style analysis
 
-The framework is called **physics-guided** because the training is designed around the physical structure of the heat-transfer problem and uses a combined learning objective motivated by both data consistency and equation-based behaviour.
+The framework is described as **physics-guided** because the training process is designed around the physical structure of the heat-transfer problem and uses a learning objective motivated by both data consistency and equation-based behaviour.
 
 ---
 
@@ -205,18 +210,18 @@ The predictive model is a fully connected feedforward neural network.
   - 32 neurons
   - 16 neurons
   - 8 neurons
-- Output layer: **1 neuron** \((T)\)
+- Output layer: **1 neuron** for temperature prediction
 
 ### Activation Function
 - **ReLU**
 
-### Why this architecture?
-This architecture provides a balance between:
-- expressive power
+### Rationale
+This architecture was chosen to balance:
+- expressive capability
+- computational efficiency
 - training stability
-- manageable computational cost
 
-Because the task is coordinate-based and the output is a continuous scalar field, a fully connected network is a reasonable approximation framework for this problem.
+Since the task is coordinate-based and the output is a continuous scalar field, a fully connected neural network provides a practical approximation framework for this problem.
 
 ---
 
@@ -235,14 +240,14 @@ Because the task is coordinate-based and the output is a continuous scalar field
 - **70% training**
 - **30% testing**
 
-### Loss Design
-The model training combines:
+### Training Objective
+The training process is designed around:
 - **data consistency**
 - **physics-guided structure**
 
-The idea is to encourage the model not only to fit ANSYS temperature samples, but also to learn behaviour aligned with the thermal problem.
+The aim is to encourage the network not only to fit the ANSYS reference samples, but also to learn behaviour aligned with the thermal problem.
 
-### Evaluation Strategy
+### Evaluation Approach
 The trained models are analysed using:
 - convergence curves
 - predicted vs actual scatter plots
@@ -291,8 +296,15 @@ pinn-2d-heat-transfer/
 │   ├── solid_square_mesh.jpeg
 │   └── square_with_void_mesh.jpeg
 ├── docs/
-│   └── project_overview.md
+│   ├── project_overview.md
+│   ├── results_summary.md
+│   ├── resume_project_summary.md
+│   └── notebook_notes.md
+├── src/
+│   └── README.md
 ├── requirements.txt
+├── CONTRIBUTING.md
+├── CITATION.cff
 ├── LICENSE
 ├── .gitignore
 └── README.md

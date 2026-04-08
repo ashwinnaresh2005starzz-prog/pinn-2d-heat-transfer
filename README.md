@@ -1,7 +1,5 @@
 # Physics-Guided Neural Network for Transient 2D Heat Transfer in Homogeneous Materials
 
-A portfolio-ready machine learning and scientific computing project that models transient two-dimensional heat transfer in both regular and complex geometries using a physics-guided neural network framework.
-
 This project studies temperature evolution in:
 - a **solid square plate**
 - a **square plate with a central void**
